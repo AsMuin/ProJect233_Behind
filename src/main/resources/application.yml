@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/project233
+    username: root
+    password: water109019019
+
+
+mybatis:
+  configuration:
+    mapUnderscoreToCamelCase: true #开启驼峰命名和下划线命名转换
