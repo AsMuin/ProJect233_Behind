@@ -7,7 +7,7 @@ public interface UserService {
 
     //根据用户名查询用户
     //注册
-    void register(String username, String password);
+    void register(String username, String password,Boolean userRole);
 
     //更新
     void update(User user);

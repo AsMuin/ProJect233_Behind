@@ -20,11 +20,11 @@ public class UserServiceImpl implements UserService {
        return u;
     }
     @Override
-    public void register(String username, String password) {
+    public void register(String username, String password,Boolean userRole) {
         //加密
         String md5String=Md5Util.getMD5String(password);
         //添加
-        userMapper.add(username,md5String);
+        userMapper.add(username,md5String,userRole);
     }
     @Override
     public void update(User user) {

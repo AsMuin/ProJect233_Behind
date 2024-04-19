@@ -34,6 +34,9 @@ public class User {
     private String email;//邮箱
     private String userPic;//用户头像地址
 
+    @NotEmpty
+    private Boolean userRole;//用户角色：user/admin
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;//创建时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

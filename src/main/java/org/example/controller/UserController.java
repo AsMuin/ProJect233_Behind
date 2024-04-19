@@ -25,13 +25,13 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public Result register(@Pattern(regexp = "^\\S{5,16}$") String username, @Pattern(regexp = "^\\S{5,16}$") String password) {
+    public Result register(@Pattern(regexp = "^\\S{5,16}$") String username, @Pattern(regexp = "^\\S{5,16}$") String password,Boolean userRole) {
         {
             //查询用户
             User u = userService.findByUserName(username);
             if (u == null) {
                 //注册
-                userService.register(username, password);
+                userService.register(username, password,userRole);
                 return Result.success();
             } else {
                 //占用
@@ -47,7 +47,7 @@ public class UserController {
         User loginuser = userService.findByUserName(username);
         //判断该用户是否存在
         if (loginuser == null) {
-            return Result.error("用户名不存在");
+            return Result.error("用户名不存在");//(1,"用户名不存在") --用户名不存在作为Message返回
         } else {
             //判断密码是否正确 loginUser对象中的password是密文
             //提交id，username数据存储到map中，可在后续操作中利用ThreadLocal提取该线程中存储的id，username数据
@@ -56,8 +56,9 @@ public class UserController {
                 Map<String, Object> claims = new HashMap<>();
                 claims.put("id", loginuser.getId());
                 claims.put("username", loginuser.getUsername());
+                claims.put("userRole", loginuser.getUserRole());
                 String token = JwtUtil.genToken(claims);
-                return Result.success(token);
+                return Result.success(token); //(0,"登录成功",token) --0代表操作成功  token作为Data返回
             } else {
                 return Result.error("密码错误");
             }
