@@ -15,12 +15,17 @@ public interface ArticleMapper {
     List<Article> list(String categoryId, String state, Integer userId);
 
     //修改文章信息
-    @Update("update article set title=#{article.title}, content=#{article.content}, " +
-            "cover_img=#{article.coverImg}, state=#{article.state}, category_id=#{article.categoryId}, " +
-            "update_time=now() where create_user=#{userId} and id=#{article.id}")
+    @Update("UPDATE article a " +
+            "JOIN user u ON u.id = #{userId} " +
+            "SET a.title = #{article.title}, a.content = #{article.content}, " +
+            "a.cover_img = #{article.coverImg}, a.state = #{article.state}, " +
+            "a.category_id = #{article.categoryId}, a.update_time = NOW() " +
+            "WHERE (a.create_user = #{userId} OR u.user_Role = TRUE) " +
+            "AND a.id = #{article.id}")
     void update(@Param("article") Article article, @Param("userId") Integer userId);
 
     //删除文章
-    @Delete("delete from article where id=#{id} and create_user=#{userId}")
+    @Delete("DELETE article FROM article JOIN user ON user.id = #{userId} WHERE article.id=#{id} " +
+            "AND (article.create_user=#{userId} OR user.user_role = TRUE)")
     void delete(@Param("id") Integer id, @Param("userId") Integer userId);
 }
