@@ -35,7 +35,7 @@ public class QiniuOssUtil {
 //                System.out.println(putRet.hash);
                 if (response.statusCode == 200) {
                     System.out.println(response);
-                    result = "http://sjk2ohooq.sabkt.gdipper.com/" + key;//http://xxxxxxx.com/换成七牛云提供的测试域名或者空间绑定的域名
+                    result = "http://sjk2ohooq.sabkt.gdipper.com/" + key;//http://xxxxxxx.xxx/换成七牛云提供的测试域名或者空间绑定的域名
                 }
             } catch (QiniuException ex) {
                 Response r = ex.response;
